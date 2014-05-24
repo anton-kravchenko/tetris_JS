@@ -6,8 +6,8 @@ ex.height = canvasH;
 
 var grid = [];
 initGrid();
-drawGrid();
 drawBorder();
+drawGrid();
 
 function initGrid()
 {
@@ -42,6 +42,21 @@ function anim()
 }
 
 
+function checkNextGridPlace(x, y)
+{
+	var index = defineGridIndex(x, y);
+	if(0 == grid[index]) return true;
+	return false;
+}
+
+function defineGridIndex(x, y)
+{
+
+	var dx = (((x-canvasW/2+gridSizeX/2 * blockSizeX) / blockSizeX) % gridSizeX);
+	var dy = ((y - startY) / blockSizeY);
+	var pos = dy * gridSizeX + dx;
+	return dy * gridSizeX + dx;
+}
 
 function clearFullLines()
 {
@@ -70,20 +85,3 @@ function clearFullLines()
 	}
 	drawGrid();
 }
-
-function checkNextGridPlace(x, y)
-{
-	var index = defineGridIndex(x, y);
-	if(0 == grid[index]) return true;
-	return false;
-}
-
-function defineGridIndex(x, y)
-{
-
-	var dx = (((x-canvasW/2+gridSizeX/2 * blockSizeX) / blockSizeX) % gridSizeX);
-	var dy = ((y - startY) / blockSizeY);
-	var pos = dy * gridSizeX + dx;
-	return dy * gridSizeX + dx;
-}
-
