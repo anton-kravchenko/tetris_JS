@@ -1,51 +1,107 @@
-function Block (x, y) {
-	this.x = x;
-	this.y = y;
+function SimpleBlock () {
 	color = 'Gold';
-	currentPos = defineGridIndex(x,y);
-	prevPos = -1;
-	this.drawMe();
+	gridCell = blockStartPos;
+	raw = 0; 
+	col = blockStartPos;
+	this.draw();
 }
 
-Block.prototype = {
-	drawMe: function () {
+SimpleBlock.prototype = {
+	draw: function () {
+		
 		ctx.fillStyle = color;
-		ctx.fillRect(this.x, this.y, blockSizeX , blockSizeY );
+		ctx.fillRect(	borderX + col * blockSizeX, 
+						borderY + raw * blockSizeY, 
+						blockSizeX, blockSizeY );
 	},
-	movePlus: function (dx, dy){
-		ctx.clearRect(this.x, this.y, blockSizeX , blockSizeY );
+	clear: function () {
+		ctx.clearRect(	borderX + col * blockSizeX, 
+						borderY + raw * blockSizeY, 
+						blockSizeX, blockSizeY );
+
 		ctx.fillStyle = backgroundColor;
-		ctx.fillRect(this.x, this.y, blockSizeX , blockSizeY );
 
-		var nextIndex = defineGridIndex(this.x + dx, this.y + dy);
+		ctx.fillRect(	borderX + col * blockSizeX, 
+						borderY + raw * blockSizeY, 
+						blockSizeX, blockSizeY );
+	},
+	moveDown: function (){
+		this.move(DOWN);
+	},
+	moveLeft: function (){
+		this.move(LEFT);
+	},
+	moveRight: function (){
+		this.move(RIGHT);
+	},
+	move: function (dir){
 
-		if(true == grid[nextIndex].isEmpty)
+	var canMove = false;
+
+
+	var outOfBounds = false;
+	var downMove = false;
+
+	this.clear();
+	
+	if ( DOWN  == dir) raw++;
+	if ( LEFT  == dir) col--;
+	if ( RIGHT == dir) col++;
+
+
+	if(col > -1 && col < gridSizeX && raw < gridSizeY)
+	{
+
+		if(true == grid[raw*gridSizeX + col].isEmpty)
 		{
-			this.x += dx;
-			this.y += dy;
-			
-			prevPos = currentPos;
-			currentPos = defineGridIndex(this.x, this.y);
-
-			grid[prevPos].isEmpty = true;
-			grid[prevPos].color = backgroundColor;
-
-			grid[currentPos].isEmpty = false;
-			grid[currentPos].color = this.color;
-			this.drawMe();
-		} else {
-			this.drawMe();
-			
-			if(0 == dx)
-			{
-				clearFullLines();
-				// delete currentBlock;
-				currentBlock = createNewBlock();
-			}
+			canMove = true;
+			this.draw();
 		}
-		if (nextIndex >= gridSizeX * (gridSizeY -1)) 
+
+	} else outOfBounds = true;
+
+	if(true == outOfBounds)
+	{
+		if ( DOWN  == dir) raw--;
+		if ( LEFT  == dir) col++;
+		if ( RIGHT == dir) col--;
+		
+		gridCell = raw * gridSizeX + col;
+		this.draw();
+		if((gridSizeY -1) == raw )
 		{
+			grid[gridCell].isEmpty = false;
+			grid[gridCell].color = this.color;
 			clearFullLines();
+
+				delete currentBlock;
+			currentBlock = createNewBlock();
 		}
+		console.log("outOfBounds; raw = " + raw + " " + gridCell);
+	}	
+		if(false == canMove && false == outOfBounds)
+		{
+			if(DOWN == dir)
+			{
+
+				if ( DOWN  == dir) raw--;
+				if ( LEFT  == dir) col++;
+				if ( RIGHT == dir) col--;
+
+				gridCell = raw * gridSizeX + col;
+				this.draw();
+
+				grid[gridCell].isEmpty = false;
+				grid[gridCell].color = this.color;
+				clearFullLines();
+
+					delete currentBlock;
+				currentBlock = createNewBlock();
+			} else	{
+				if ( LEFT  == dir) col++;
+				if ( RIGHT == dir) col--;
+				this.draw();
+			}
+		} 
 	}
 };

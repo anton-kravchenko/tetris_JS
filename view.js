@@ -1,6 +1,5 @@
 function drawGrid()
 {
-
 var dx = canvasW /2 - gridSizeX / 2 * blockSizeX;
 var dy = startY;
 

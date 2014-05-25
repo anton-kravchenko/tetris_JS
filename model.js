@@ -11,19 +11,13 @@ drawGrid();
 
 function initGrid()
 {
-	for (var i = 0; i < gridSizeX * gridSizeY; i++) 
+	for (var i = 0; i < gridSizeX * gridSizeY; i++) 			//need make 2d
 	{
 	    grid.push({
 	        isEmpty: true,
 	        color: backgroundColor
 	    });
 	}
-
-	for(var i = 107; i < 200; i+=3)
-	{
-		grid[i].color = 'DarkGreen';
-		grid[i].isEmpty = false;
-	}	
 }
 
 var currentBlock = createNewBlock();
@@ -31,10 +25,10 @@ var currentBlock = createNewBlock();
 function createNewBlock()
 {
 	//add few block where
-	return new Block(startX, startY);
+	return new SimpleBlock();
 }
 
-anim();
+// anim();
 function anim()
 {
 	currentBlock.movePlus( 0, dy); 
