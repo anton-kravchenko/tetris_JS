@@ -25,6 +25,7 @@ var currentBlock = createNewBlock();
 function createNewBlock()
 {
 	//add few block where
+	return new SquareBlock();
 	return new SimpleBlock();
 }
 
@@ -54,6 +55,7 @@ function defineGridIndex(x, y)
 
 function clearFullLines()
 {
+
 	for(var i = gridSizeY - 1; i > 0; i--)
 	{
 		var fullLine = true;
@@ -64,6 +66,7 @@ function clearFullLines()
 		
 		if(fullLine)
 		{
+			console.log("line " + i + " is full");
 			var currentLine = i;
 			while(currentLine > 0)
 			{
@@ -75,6 +78,7 @@ function clearFullLines()
 				currentLine--;
 			}
 			// debugger;
+			i++;
 		}
 	}
 	drawGrid();

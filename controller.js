@@ -5,10 +5,8 @@ document.onkeydown = function(e) {
 			//rotate        			
             //currentBlock Rotate
         case 40: 
-           
             currentBlock.moveDown();
         	break; // down
-
         case 37:
             currentBlock.moveLeft();
             break; 

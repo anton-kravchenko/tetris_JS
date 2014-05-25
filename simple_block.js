@@ -97,7 +97,7 @@ SimpleBlock.prototype = {
 
 					delete currentBlock;
 				currentBlock = createNewBlock();
-			} else {
+			} else	{
 				if ( LEFT  == dir) col++;
 				if ( RIGHT == dir) col--;
 				this.draw();
