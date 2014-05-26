@@ -4,8 +4,12 @@ function SquareBlock () {
 	raw = 0; 
 	col = blockStartPos;
 	// var b = [[1,{х:1. у:2}], [2, {х:3. у:4}]];
-	points = [	{col:blockStartPos, raw:0}, 	{col:blockStartPos+1, raw:0},
-				{col:blockStartPos, raw:1},		{col:blockStartPos+1, raw:1}	]; 	
+	points = new Array	(
+						 new Point (0, blockStartPos),
+						 new Point (0, blockStartPos + 1),
+						 new Point (1, blockStartPos),
+						 new Point (1, blockStartPos + 1)
+						);
 	this.draw();
 }
 
@@ -47,125 +51,48 @@ SquareBlock.prototype = {
 
 	var canMove = false;
 
-
-	var outOfBounds = false;
-	var downMove = false;
-
 	this.clear();
 	
+	var newPos = new Array();
 	if ( DOWN  == dir) 
 		for(var i = 0; i < 4; i++)
-			points[i].raw++;
+			newPos.push(new Point(points[i].raw + 1, points[i].col));
 
 	if ( LEFT  == dir) 
 		for(var i = 0; i < 4; i++)
-			points[i].col--;
+			newPos.push( new Point(points[i].raw, points[i].col - 1));
 
 	if ( RIGHT == dir) 
 		for(var i = 0; i < 4; i++)
-			points[i].col++;
-
-	var start = 0;
-	var step  = 2;
-	if(RIGHT == dir)  start = 1;
-	if(LEFT  == dir)  start = 0;
-	if(DOWN  == dir) {start = 2; step = 1};
+			newPos.push( new Point(points[i].raw, points[i].col + 1));
 
 	var c = 0;
-	for(var i = start; i < 4; i+=step)
-	if (points[i].col > -1 && points[i].col < gridSizeX && points[i].raw < gridSizeY)
-	{
+	for(var i = 0; i < 4; i++)
+		if ( true == grid[ newPos[i].raw ] [ newPos[i].col ].isEmpty ) c++;		//check new pos points of block
 
-		if(true == grid[points[i].raw*gridSizeX + points[i].col].isEmpty)
+	if ( 4 == c ) canMove = true;
+	debugger;
+	if( canMove )
+	{
+		for(var i = 0; i < 4; i++)
 		{
-			c++;
-			this.draw();
+			points[i].raw = newPos[i].raw;
+			points[i].col = newPos[i].col;
 		}
-
-	} else outOfBounds = true;
-
-	if(c > 1)	canMove = true;
-	console.log("start "+ start + ", step "+step + ", c ="+c);
-	if(true == outOfBounds)
-	{
-		if ( DOWN  == dir)
-			for(var i = 0; i < 4; i++)
-				points[i].raw--;
-
-		if ( LEFT  == dir)
-			for(var i = 0; i < 4; i++)
-				points[i].col++;
-
-		if ( RIGHT == dir)
-			for(var i = 0; i < 4; i++)
-				points[i].col--;
-		
-		gridCell = raw * gridSizeX + col;
-		this.draw();
-
-		var lastMove = false;
-		for(var i = start; i < 4; i += step)
-			if((gridSizeY -1) == points[i].raw ) 
-				lastMove = true;
-			else lastMove = false;
-
-		if(lastMove)
+	} else if( DOWN == dir)
 		{
 			for(var i = 0; i < 4; i++)
 			{
-				grid[points[i].raw * gridSizeX + points[i].col].isEmpty = false;	
-				grid[points[i].raw * gridSizeX + points[i].col].color = this.color;	
+				grid[ newPos[i].raw ][ newPos[i].col ].isEmpty = false;	
+				grid[ newPos[i].raw ][ newPos[i].col ].color = this.color;	
 			}
 
-			clearFullLines();
+			// clearFullLines();
 
 				delete currentBlock;
-			currentBlock = createNewBlock();
+			currentBlock = createNewBlock();		
 		}
-	}	
-		if(false == canMove && false == outOfBounds)
-		{
-			if(DOWN == dir)
-			{
-				console.log("DOWN");
-				if ( DOWN  == dir) 
-					for(var i = 0; i < 4; i++)
-						points[i].raw--;
 
-				if ( LEFT  == dir) 
-					for(var i = 0; i < 4; i++)
-						points[i].col++;
-
-				if ( RIGHT == dir) 
-					for(var i = 0; i < 4; i++)
-						points[i].col--;
-
-				gridCell = raw * gridSizeX + col;
-				this.draw();
-
-				for(var i = 0; i < 4; i++)
-				{
-					grid[points[i].raw * gridSizeX + points[i].col].isEmpty = false;	
-					grid[points[i].raw * gridSizeX + points[i].col].color = this.color;	
-				}
-				clearFullLines();
-
-					delete currentBlock;
-				currentBlock = createNewBlock();
-			} else	{
-
-				console.log("else 155, canMove "+canMove + ", outOfBounds "+outOfBounds);
-				debugger;
-				if ( LEFT  == dir)
-					for(var i = 0; i < 4; i++)
-						points[i].col++;
-
-				if ( RIGHT == dir)
-					for(var i = 0; i < 4; i++)
-						points[i].col--;
-				this.draw();
-				debugger;
-			}
-		} 
+		this.draw();		
 	}
 };

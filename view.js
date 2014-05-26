@@ -3,20 +3,20 @@ function drawGrid()
 var dx = canvasW /2 - gridSizeX / 2 * blockSizeX;
 var dy = startY;
 
-	for(var col = 0; col < gridSizeY; col++)
+	for(var raw = 0; raw < gridSizeY; raw++)
 	{
-		for(var raw = 0; raw < gridSizeX; raw++)
+		for(var col = 0; col < gridSizeX; col++)
 		{
 
 		ctx.fillStyle = 'Chartreuse';								//change fill color
-		ctx.clearRect(	dx + raw * blockSizeX, 						// need to use color of block	
-						startY + col * blockSizeY, 
+		ctx.clearRect(	dx + col * blockSizeX, 						// need to use color of block	
+						startY + (raw - 1 )* blockSizeY, 
 						blockSizeX, blockSizeY );
 
-		ctx.fillStyle = grid[col * gridSizeX + raw].color;
+		ctx.fillStyle = grid[raw][col + 1].color;
 
-		ctx.fillRect(	dx + raw * blockSizeX, 
-						startY + col * blockSizeY, 
+		ctx.fillRect(	dx + col * blockSizeX, 
+						startY + (raw - 1) * blockSizeY, 
 						blockSizeX, blockSizeY );
 		}
 

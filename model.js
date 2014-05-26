@@ -4,20 +4,30 @@ var ctx = ex.getContext("2d");
 ex.width = canvasW;
 ex.height = canvasH;
 
-var grid = [];
+var grid; 
 initGrid();
 drawBorder();
 drawGrid();
 
 function initGrid()
 {
-	for (var i = 0; i < gridSizeX * gridSizeY; i++) 			//need make 2d
-	{
-	    grid.push({
-	        isEmpty: true,
-	        color: backgroundColor
-	    });
-	}
+	grid = new Array(gridSizeY + 1);					// +1 - to create safe pillow ( we don't need to handle outOfBounds because of her)
+	for(var i = 0; i < (gridSizeY +1 ); i++)
+		grid[i] = new Array(gridSizeX+1);
+	
+	for (var i = 0; i <  (gridSizeY + 1); i++) 			
+		for(var j = 0; j < (gridSizeX +1 ); j++)
+		{
+				// grid[i][j].color = backgroundColor;
+			var isEmpty = true; 
+			if( 0 == j | gridSizeX == j ) isEmpty = false;
+
+			grid[i][j] = new Tile(isEmpty, backgroundColor);
+
+			if( gridSizeY == i)
+				grid[i][j].isEmpty = false
+		}
+
 }
 
 var currentBlock = createNewBlock();
@@ -56,12 +66,12 @@ function defineGridIndex(x, y)
 function clearFullLines()
 {
 
-	for(var i = gridSizeY - 1; i > 0; i--)
+	for(var raw = gridSizeY ; i > 0; i--)
 	{
 		var fullLine = true;
-		for(var j = 0; j < gridSizeX; j++)
+		for(var col = 1; j < gridSizeX + 1; j++)
 		{
-			if( true == grid[i * gridSizeX + j].isEmpty) fullLine = false;
+			if( true == grid[raw][col].isEmpty) fullLine = false;
 		}
 		
 		if(fullLine)
@@ -70,7 +80,7 @@ function clearFullLines()
 			var currentLine = i;
 			while(currentLine > 0)
 			{
-				for(var k = 0; k < gridSizeX; k++)
+				for(var k = 1; k < gridSizeX + 1; k++) /// need to fix to use safty pillow
 				{
 					grid[currentLine * gridSizeX + k].isEmpty = grid[(currentLine - 1) * gridSizeX + k].isEmpty;	
 					grid[currentLine * gridSizeX + k].color = grid[(currentLine - 1) * gridSizeX + k].color;
