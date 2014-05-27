@@ -3,12 +3,42 @@ function StairBlock () {
 	gridCell = blockStartPos;
 	raw = 0; 
 	col = blockStartPos;
-	// var b = [[1,{х:1. у:2}], [2, {х:3. у:4}]];
-	points = new Array	(
-						 new Point (0, blockStartPos),
-						 new Point (1, blockStartPos - 1),
-						 new Point (1, blockStartPos),
-						 new Point (1, blockStartPos + 1)
+	currentRotateState = 0;
+	points = new Array		(
+							 new Point (0, blockStartPos),
+							 new Point (1, blockStartPos - 1),
+							 new Point (1, blockStartPos),
+							 new Point (1, blockStartPos + 1)
+							);
+	RStates = new Array(
+						new Array							//up
+							(
+							 new Point (-1, 1),
+							 new Point (-1, -1),
+							 new Point (0, 0),
+							 new Point (1, 1)
+							),
+						new Array							//right
+							(
+							 new Point (1, 1),
+							 new Point (-1, 1),
+							 new Point (0, 0),
+							 new Point (1, -1)
+							),
+						new Array							//down
+							(
+							 new Point (1, -1),
+							 new Point (1, 1),
+							 new Point (0, 0),
+							 new Point (-1, -1)
+							),
+						new Array							//left
+							(
+							 new Point (-1, -1),
+							 new Point (1, -1),
+							 new Point (0, 0),
+							 new Point (-1, 1)
+							)
 						);
 	this.draw();
 }
@@ -22,6 +52,7 @@ StairBlock.prototype = {
 		ctx.fillRect(	borderX + points[i].col * blockSizeX, 
 						borderY + points[i].raw * blockSizeY, 
 						blockSizeX, blockSizeY );
+		// break;
 		}
 	},
 	clear: function () {
@@ -37,6 +68,31 @@ StairBlock.prototype = {
 						borderY + points[i].raw * blockSizeY, 
 						blockSizeX, blockSizeY );
 		}
+	},
+	rotate: function(){
+		currentRotateState++;
+		if(4 == currentRotateState) currentRotateState = 0;
+		
+		this.clear();
+		debugger;
+		var newAngle = new Array();
+		for(var i = 0; i < 4; i++)
+		{
+			newAngle.push( new Point(points[i].raw + RStates[currentRotateState][i].raw, points[i].col + RStates[currentRotateState][i].col));
+		}
+		var c = 4;
+		for(var i = 0; i < 4; i++)
+		// if ( true == grid[ newAngle[i].raw ][ newAngle[i].col].isEmpty ) c++;
+		
+		if( 4 == c )
+		{
+			for(var i = 0; i < 4; i++)
+			{
+				points[i].raw = newAngle[i].raw;
+				points[i].col = newAngle[i].col;
+			}	
+		}	
+		this.draw();
 	},
 	moveDown: function (){
 		this.move(DOWN);

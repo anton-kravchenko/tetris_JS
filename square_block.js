@@ -38,6 +38,9 @@ SquareBlock.prototype = {
 						blockSizeX, blockSizeY );
 		}
 	},
+	rotate: function (){
+
+	},
 	moveDown: function (){
 		this.move(DOWN);
 	},

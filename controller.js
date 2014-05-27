@@ -1,9 +1,9 @@
 document.onkeydown = function(e) {
     e = e || event; // "real browsers" || IE6/7.
     switch (e.keyCode) {
-        // case 38: 
-			//rotate        			
-            //currentBlock Rotate
+        case 38: 
+            currentBlock.rotate();
+            break;
         case 40: 
             currentBlock.moveDown();
         	break; // down

@@ -36,7 +36,6 @@ var currentBlock = createNewBlock();
 
 function createNewBlock()
 {
-	
 	//add few block where
 	blockNum++;
 	if( 0 == blockNum % NUMBER_OF_BLOCKS) return new SquareBlock();

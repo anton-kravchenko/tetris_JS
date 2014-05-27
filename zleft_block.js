@@ -3,17 +3,47 @@ function ZLeftBlock () {
 	gridCell = blockStartPos;
 	raw = 0; 
 	col = blockStartPos;
-	// var b = [[1,{х:1. у:2}], [2, {х:3. у:4}]];
+	currentRotateState = 0;
 	points = new Array	(
 						 new Point (0, blockStartPos),
 						 new Point (0, blockStartPos + 1),
 						 new Point (1, blockStartPos + 1),
 						 new Point (1, blockStartPos + 2)
 						);
+	RStates = new Array(
+						new Array							//up
+							(
+							 new Point (-2, 0),
+							 new Point (-1, 1),
+							 new Point (0, 0),
+							 new Point (1, 1)
+							),
+						new Array							//right
+							(
+							 new Point (0, 2),
+							 new Point (1, 1),
+							 new Point (0, 0),
+							 new Point (1, -1)
+							),
+						new Array							//down
+							(
+							 new Point (2, 0),
+							 new Point (1, -1),
+							 new Point (0, 0),
+							 new Point (-1, -1)
+							),
+						new Array							//left
+							(
+							 new Point (0, -2),
+							 new Point (-1, -1),
+							 new Point (0, 0),
+							 new Point (-1, 1)
+							)
+						);
 	this.draw();
 }
 
-SquareBlock.prototype = {
+ZLeftBlock.prototype = {
 	draw: function () {
 		for(var i = 0; i < 4; i++)
 		{
@@ -38,6 +68,32 @@ SquareBlock.prototype = {
 						blockSizeX, blockSizeY );
 		}
 	},
+	rotate: function(){
+	currentRotateState++;
+	if(4 == currentRotateState) currentRotateState = 0;
+	
+	this.clear();
+	debugger;
+	var newAngle = new Array();
+	for(var i = 0; i < 4; i++)
+	{
+		newAngle.push( new Point(points[i].raw + RStates[currentRotateState][i].raw, points[i].col + RStates[currentRotateState][i].col));
+	}
+	var c = 4;
+	for(var i = 0; i < 4; i++)
+	// if ( true == grid[ newAngle[i].raw ][ newAngle[i].col].isEmpty ) c++;
+	
+	if( 4 == c )
+	{
+		for(var i = 0; i < 4; i++)
+		{
+			points[i].raw = newAngle[i].raw;
+			points[i].col = newAngle[i].col;
+		}	
+	}	
+	this.draw();
+},
+
 	moveDown: function (){
 		this.move(DOWN);
 	},
