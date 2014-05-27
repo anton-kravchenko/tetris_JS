@@ -69,29 +69,28 @@ ZLeftBlock.prototype = {
 		}
 	},
 	rotate: function(){
-	currentRotateState++;
-	if(4 == currentRotateState) currentRotateState = 0;
-	
-	this.clear();
-	debugger;
-	var newAngle = new Array();
-	for(var i = 0; i < 4; i++)
-	{
-		newAngle.push( new Point(points[i].raw + RStates[currentRotateState][i].raw, points[i].col + RStates[currentRotateState][i].col));
-	}
-	var c = 4;
-	for(var i = 0; i < 4; i++)
-	// if ( true == grid[ newAngle[i].raw ][ newAngle[i].col].isEmpty ) c++;
-	
-	if( 4 == c )
-	{
+		currentRotateState++;
+		if(4 == currentRotateState) currentRotateState = 0;
+		
+		this.clear();
+		var newAngle = new Array();
 		for(var i = 0; i < 4; i++)
 		{
-			points[i].raw = newAngle[i].raw;
-			points[i].col = newAngle[i].col;
-		}	
-	}	
-	this.draw();
+			newAngle.push( new Point(points[i].raw + RStates[currentRotateState][i].raw, points[i].col + RStates[currentRotateState][i].col));
+		}
+		var c = 0;
+		for(var i = 0; i < 4; i++)
+			if ( true == grid[ newAngle[i].raw ][ newAngle[i].col].isEmpty ) c++;
+		
+		if( 4 == c )
+		{
+			for(var i = 0; i < 4; i++)
+			{
+				points[i].raw = newAngle[i].raw;
+				points[i].col = newAngle[i].col;
+			}	
+		} else currentRotateState--;	
+		this.draw();
 },
 
 	moveDown: function (){

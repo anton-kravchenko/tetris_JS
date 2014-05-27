@@ -57,18 +57,21 @@ LineBlock.prototype = {
 	},
 	rotate: function(){
 		currentRotateState++;
-		if(2 == currentRotateState) currentRotateState = 0;
+		if(4 == currentRotateState) currentRotateState = 0;
 		
 		this.clear();
-		debugger;
 		var newAngle = new Array();
 		for(var i = 0; i < 4; i++)
 		{
 			newAngle.push( new Point(points[i].raw + RStates[currentRotateState][i].raw, points[i].col + RStates[currentRotateState][i].col));
 		}
-		var c = 4;
+		var c = 0;
 		for(var i = 0; i < 4; i++)
-		// if ( true == grid[ newAngle[i].raw ][ newAngle[i].col].isEmpty ) c++;
+			if ( newAngle[i].raw < gridSizeX && newAngle[i].col < gridSizeY ) c++;
+				c = -1
+		if( -1 != c)
+		for(var i = 0; i < 4; i++)
+			if ( true == grid[ newAngle[i].raw ][ newAngle[i].col].isEmpty ) c++;
 		
 		if( 4 == c )
 		{
@@ -77,7 +80,7 @@ LineBlock.prototype = {
 				points[i].raw = newAngle[i].raw;
 				points[i].col = newAngle[i].col;
 			}	
-		}	
+		} else currentRotateState--;	
 		this.draw();
 	},
 	moveDown: function (){

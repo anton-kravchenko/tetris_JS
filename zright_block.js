@@ -74,15 +74,14 @@ ZRightBlock.prototype = {
 		if(4 == currentRotateState) currentRotateState = 0;
 		
 		this.clear();
-		debugger;
 		var newAngle = new Array();
 		for(var i = 0; i < 4; i++)
 		{
 			newAngle.push( new Point(points[i].raw + RStates[currentRotateState][i].raw, points[i].col + RStates[currentRotateState][i].col));
 		}
-		var c = 4;
+		var c = 0;
 		for(var i = 0; i < 4; i++)
-		// if ( true == grid[ newAngle[i].raw ][ newAngle[i].col].isEmpty ) c++;
+			if ( true == grid[ newAngle[i].raw ][ newAngle[i].col].isEmpty ) c++;
 		
 		if( 4 == c )
 		{
@@ -91,7 +90,7 @@ ZRightBlock.prototype = {
 				points[i].raw = newAngle[i].raw;
 				points[i].col = newAngle[i].col;
 			}	
-		}	
+		} else currentRotateState--;	
 		this.draw();
 },
 	moveDown: function (){
