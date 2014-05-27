@@ -1,5 +1,5 @@
-function SquareBlock () {
-	color = 'Cyan';
+function ZLeftBlock () {
+	color = 'Chartreuse';
 	gridCell = blockStartPos;
 	raw = 0; 
 	col = blockStartPos;
@@ -7,8 +7,8 @@ function SquareBlock () {
 	points = new Array	(
 						 new Point (0, blockStartPos),
 						 new Point (0, blockStartPos + 1),
-						 new Point (1, blockStartPos),
-						 new Point (1, blockStartPos + 1)
+						 new Point (1, blockStartPos + 1),
+						 new Point (1, blockStartPos + 2)
 						);
 	this.draw();
 }

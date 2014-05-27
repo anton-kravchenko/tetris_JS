@@ -1,5 +1,5 @@
-function SquareBlock () {
-	color = 'Cyan';
+function GRightBlock () {
+	color = 'OrangeRed';
 	gridCell = blockStartPos;
 	raw = 0; 
 	col = blockStartPos;
@@ -8,12 +8,16 @@ function SquareBlock () {
 						 new Point (0, blockStartPos),
 						 new Point (0, blockStartPos + 1),
 						 new Point (1, blockStartPos),
-						 new Point (1, blockStartPos + 1)
+						 new Point (2, blockStartPos)
+ 						//  new Point (0, blockStartPos -1),
+						 // new Point (0, blockStartPos),
+						 // new Point (1, blockStartPos),
+						 // new Point (2, blockStartPos)
 						);
 	this.draw();
 }
 
-SquareBlock.prototype = {
+GRightBlock.prototype = {
 	draw: function () {
 		for(var i = 0; i < 4; i++)
 		{

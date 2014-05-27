@@ -4,6 +4,8 @@ var ctx = ex.getContext("2d");
 ex.width = canvasW;
 ex.height = canvasH;
 
+var blockNum = 0;
+
 var grid; 
 initGrid();
 drawBorder();
@@ -13,14 +15,14 @@ function initGrid()
 {
 	grid = new Array(gridSizeY + 1);					// +1 - to create safe pillow ( we don't need to handle outOfBounds because of her)
 	for(var i = 0; i < (gridSizeY +1 ); i++)
-		grid[i] = new Array(gridSizeX+1);
+		grid[i] = new Array(gridSizeX+2);
 	
 	for (var i = 0; i <  (gridSizeY + 1); i++) 			
-		for(var j = 0; j < (gridSizeX +1 ); j++)
+		for(var j = 0; j < (gridSizeX + 2 ); j++)
 		{
 				// grid[i][j].color = backgroundColor;
 			var isEmpty = true; 
-			if( 0 == j | gridSizeX == j ) isEmpty = false;
+			if( 0 == j | (gridSizeX+1) == j ) isEmpty = false;
 
 			grid[i][j] = new Tile(isEmpty, backgroundColor);
 
@@ -34,9 +36,19 @@ var currentBlock = createNewBlock();
 
 function createNewBlock()
 {
+	
 	//add few block where
-	return new SquareBlock();
-	return new SimpleBlock();
+	blockNum++;
+	if( 0 == blockNum % NUMBER_OF_BLOCKS) return new SquareBlock();
+	if( 1 == blockNum % NUMBER_OF_BLOCKS) return new LineBlock();
+	if( 2 == blockNum % NUMBER_OF_BLOCKS) return new StairBlock();
+	if( 3 == blockNum % NUMBER_OF_BLOCKS) return new ZLeftBlock();
+	if( 4 == blockNum % NUMBER_OF_BLOCKS) return new ZRightBlock();
+	if( 5 == blockNum % NUMBER_OF_BLOCKS) return new GRightBlock();
+	if( 6 == blockNum % NUMBER_OF_BLOCKS) return new GLeftBlock();
+
+	// return new SquareBlock();
+	// return new SimpleBlock();
 }
 
 // anim();
@@ -66,29 +78,30 @@ function defineGridIndex(x, y)
 function clearFullLines()
 {
 
-	for(var raw = gridSizeY ; i > 0; i--)
+	for(var raw = gridSizeY-1; raw > 0; raw--)
 	{
 		var fullLine = true;
-		for(var col = 1; j < gridSizeX + 1; j++)
+		for(var col = 1; col < gridSizeX + 1; col++)
 		{
 			if( true == grid[raw][col].isEmpty) fullLine = false;
 		}
 		
 		if(fullLine)
 		{
-			console.log("line " + i + " is full");
-			var currentLine = i;
+			debugger;
+			console.log("line " + raw + " is full");
+			var currentLine = raw;
 			while(currentLine > 0)
 			{
-				for(var k = 1; k < gridSizeX + 1; k++) /// need to fix to use safty pillow
+				for(var col = 1; col < gridSizeX+1; col++) /// need to fix to use safty pillow
 				{
-					grid[currentLine * gridSizeX + k].isEmpty = grid[(currentLine - 1) * gridSizeX + k].isEmpty;	
-					grid[currentLine * gridSizeX + k].color = grid[(currentLine - 1) * gridSizeX + k].color;
+					grid[currentLine][col].isEmpty 	= 	grid[currentLine - 1][col].isEmpty;	
+					grid[currentLine][col].color 	=	grid[currentLine - 1][col].color;	
 				}
 				currentLine--;
 			}
 			// debugger;
-			i++;
+			raw++;
 		}
 	}
 	drawGrid();

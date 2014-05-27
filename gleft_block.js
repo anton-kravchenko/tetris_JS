@@ -1,19 +1,19 @@
-function SquareBlock () {
-	color = 'Cyan';
+function GLeftBlock () {
+	color = 'Orange';
 	gridCell = blockStartPos;
 	raw = 0; 
 	col = blockStartPos;
 	// var b = [[1,{х:1. у:2}], [2, {х:3. у:4}]];
 	points = new Array	(
+						 new Point (0, blockStartPos -1),
 						 new Point (0, blockStartPos),
-						 new Point (0, blockStartPos + 1),
 						 new Point (1, blockStartPos),
-						 new Point (1, blockStartPos + 1)
+						 new Point (2, blockStartPos)
 						);
 	this.draw();
 }
 
-SquareBlock.prototype = {
+GLeftBlock.prototype = {
 	draw: function () {
 		for(var i = 0; i < 4; i++)
 		{
