@@ -37,17 +37,16 @@ var currentBlock = createNewBlock();
 function createNewBlock()
 {
 	//add few block where
-	blockNum++;
-	if( 0 == blockNum % NUMBER_OF_BLOCKS) return new SquareBlock();
-	if( 1 == blockNum % NUMBER_OF_BLOCKS) return new LineBlock();
-	if( 2 == blockNum % NUMBER_OF_BLOCKS) return new StairBlock();
-	if( 3 == blockNum % NUMBER_OF_BLOCKS) return new ZLeftBlock();
-	if( 4 == blockNum % NUMBER_OF_BLOCKS) return new ZRightBlock();
-	if( 5 == blockNum % NUMBER_OF_BLOCKS) return new GRightBlock();
-	if( 6 == blockNum % NUMBER_OF_BLOCKS) return new GLeftBlock();
+	blockNum = (Math.random() * (NUMBER_OF_BLOCKS - 1)).toFixed();
+	console.log(blockNum);
+	if( 0 == blockNum) return new SquareBlock();
+	if( 1 == blockNum) return new LineBlock();
+	if( 2 == blockNum) return new StairBlock();
+	if( 3 == blockNum) return new ZLeftBlock();
+	if( 4 == blockNum) return new ZRightBlock();
+	if( 5 == blockNum) return new GRightBlock();
+	if( 6 == blockNum) return new GLeftBlock();
 
-	// return new SquareBlock();
-	// return new SimpleBlock();
 }
 
 // anim();
@@ -87,8 +86,6 @@ function clearFullLines()
 		
 		if(fullLine)
 		{
-			debugger;
-			console.log("line " + raw + " is full");
 			var currentLine = raw;
 			while(currentLine > 0)
 			{
@@ -99,7 +96,6 @@ function clearFullLines()
 				}
 				currentLine--;
 			}
-			// debugger;
 			raw++;
 		}
 	}
