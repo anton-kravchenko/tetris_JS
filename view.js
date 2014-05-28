@@ -33,8 +33,25 @@ function drawGrid()
 		}
 
 	}
+	drawScore();
 }
+function drawScore()
+{
 
+	ctx.clearRect(dx + gridSizeX*blockSizeX + 100,startY + gridSizeY/2 * blockSizeY - 100, 200,150);
+	ctx.fillStyle = backgroundColor;
+	ctx.fillRect(dx + gridSizeX*blockSizeX + 100,startY + gridSizeY/2 * blockSizeY - 100, 200,150);	
+	ctx.font="40px Verdana";
+	// Create gradient
+	var gradient=ctx.createLinearGradient(0,0,canvasW,canvasH);
+	gradient.addColorStop("0","magenta");
+	gradient.addColorStop("0.5","blue");
+	gradient.addColorStop("1.0","red");
+	// Fill with gradient
+	ctx.fillStyle=gradient;
+	ctx.fillText("SCORE:", dx + gridSizeX*blockSizeX + 100,startY + gridSizeY/2 * blockSizeY - 50);
+	ctx.fillText(SCORE, dx + gridSizeX*blockSizeX + 100,startY + gridSizeY/2 * blockSizeY +5 );
+}
 function drawBorder()
 {
 	var dx = canvasW /2 - gridSizeX / 2 * blockSizeX + blockSizeX;

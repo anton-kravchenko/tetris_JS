@@ -3,7 +3,6 @@ function LineBlock () {
 	gridCell = blockStartPos;
 	raw = 0; 
 	col = blockStartPos;
-	// var b = [[1,{х:1. у:2}], [2, {х:3. у:4}]];
 	currentRotateState = 0;
 	points = new Array	(
 						 new Point (0, blockStartPos),
@@ -27,6 +26,8 @@ function LineBlock () {
 							 new Point (-3, 2)
 							)
 						);
+	for(var i = 0; i < 4; i++)
+		if ( false == grid[ points[i].raw ][ points[i].col ].isEmpty ) LOSS = true;
 	this.draw();
 }
 
@@ -57,8 +58,9 @@ LineBlock.prototype = {
 	},
 	rotate: function(){
 		currentRotateState++;
-		if(4 == currentRotateState) currentRotateState = 0;
+		if(2 == currentRotateState) currentRotateState = 0;
 		
+		debugger;
 		this.clear();
 		var newAngle = new Array();
 		for(var i = 0; i < 4; i++)
@@ -67,11 +69,17 @@ LineBlock.prototype = {
 		}
 		var c = 0;
 		for(var i = 0; i < 4; i++)
-			if ( newAngle[i].raw < gridSizeX && newAngle[i].col < gridSizeY ) c++;
-				c = -1
+			if ( newAngle[i].col < gridSizeX+2 && newAngle[i].col < gridSizeY )
+				c++
+			else 	
+				c = -1;
+
 		if( -1 != c)
+		{
+		c = 0;	
 		for(var i = 0; i < 4; i++)
 			if ( true == grid[ newAngle[i].raw ][ newAngle[i].col].isEmpty ) c++;
+		}
 		
 		if( 4 == c )
 		{

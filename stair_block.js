@@ -40,6 +40,8 @@ function StairBlock () {
 							 new Point (-1, 1)
 							)
 						);
+	for(var i = 0; i < 4; i++)
+		if ( false == grid[ points[i].raw ][ points[i].col ].isEmpty ) LOSS = true;
 	this.draw();
 }
 
@@ -82,7 +84,7 @@ StairBlock.prototype = {
 		var c = 0;
 		for(var i = 0; i < 4; i++)
 			if ( true == grid[ newAngle[i].raw ][ newAngle[i].col].isEmpty ) c++;
-		
+
 		if( 4 == c )
 		{
 			for(var i = 0; i < 4; i++)
@@ -146,7 +148,7 @@ StairBlock.prototype = {
 			}
 
 			clearFullLines();
-
+			SCORE++;
 				delete currentBlock;
 			currentBlock = createNewBlock();		
 			drawGrid();		

@@ -38,7 +38,6 @@ function createNewBlock()
 {
 	//add few block where
 	blockNum = (Math.random() * (NUMBER_OF_BLOCKS - 1)).toFixed();
-	console.log(blockNum);
 	if( 0 == blockNum) return new SquareBlock();
 	if( 1 == blockNum) return new LineBlock();
 	if( 2 == blockNum) return new StairBlock();
@@ -49,11 +48,14 @@ function createNewBlock()
 
 }
 
-// anim();
+anim();
 function anim()
 {
-	currentBlock.movePlus( 0, dy); 
-	setTimeout(anim, speed);
+	if(!LOSS)
+	{
+		currentBlock.moveDown(); 
+		setTimeout(anim, speed);
+	}
 }
 
 
@@ -76,6 +78,8 @@ function defineGridIndex(x, y)
 function clearFullLines()
 {
 
+	var scoreMultiplier = 1;
+
 	for(var raw = gridSizeY-1; raw > 0; raw--)
 	{
 		var fullLine = true;
@@ -86,6 +90,8 @@ function clearFullLines()
 		
 		if(fullLine)
 		{
+			SCORE += gridSizeX * scoreMultiplier++;
+
 			var currentLine = raw;
 			while(currentLine > 0)
 			{
@@ -97,6 +103,7 @@ function clearFullLines()
 				currentLine--;
 			}
 			raw++;
+			speed-=10;
 		}
 	}
 	drawGrid();

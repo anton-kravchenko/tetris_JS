@@ -21,8 +21,10 @@ var LEFT 	= 1;
 var RIGHT 	= 2;
 
 var NUMBER_OF_BLOCKS = 7;
+var SCORE = 0;
+var LOSS = false;
 
-var backgroundColor = '#333333';
+var backgroundColor = '#222222';
 var borderColor = '#777777';
 var borderThickness = 2;
 var colors = ['#33ffc5', '#00ce0f', '#c00fff'];

@@ -44,6 +44,8 @@ function GRightBlock () {
 							 new Point (1, 1)
 							)
 						);
+	for(var i = 0; i < 4; i++)
+		if ( false == grid[ points[i].raw ][ points[i].col ].isEmpty ) LOSS = true;
 	this.draw();
 }
 
@@ -85,7 +87,7 @@ GRightBlock.prototype = {
 		var c = 0;
 		for(var i = 0; i < 4; i++)
 			if ( true == grid[ newAngle[i].raw ][ newAngle[i].col].isEmpty ) c++;
-		
+
 		if( 4 == c )
 		{
 			for(var i = 0; i < 4; i++)
@@ -151,6 +153,7 @@ GRightBlock.prototype = {
 			clearFullLines();
 
 				delete currentBlock;
+			SCORE++;
 			currentBlock = createNewBlock();		
 			drawGrid();		
 		}
