@@ -5,7 +5,7 @@ function drawGrid()
 	var dy = startY;
 	for(var raw = 0; raw < gridSizeY; raw++)
 	{
-		for(var col = 1; col < gridSizeX + 1; col++)				// col = 1; col < gridsizex + 1; col-1  => 
+		for(var col = 1; col < gridSizeX + 1; col++)				
 		{	
 
 		ctx.fillStyle = 'Chartreuse';								
@@ -42,12 +42,10 @@ function drawScore()
 	ctx.fillStyle = backgroundColor;
 	ctx.fillRect(dx + gridSizeX*blockSizeX + 100,startY + gridSizeY/2 * blockSizeY - 100, 200,150);	
 	ctx.font="40px Verdana";
-	// Create gradient
 	var gradient=ctx.createLinearGradient(0,0,canvasW,canvasH);
 	gradient.addColorStop("0","magenta");
 	gradient.addColorStop("0.5","blue");
 	gradient.addColorStop("1.0","red");
-	// Fill with gradient
 	ctx.fillStyle=gradient;
 	ctx.fillText("SCORE:", dx + gridSizeX*blockSizeX + 100,startY + gridSizeY/2 * blockSizeY - 50);
 	ctx.fillText(SCORE, dx + gridSizeX*blockSizeX + 100,startY + gridSizeY/2 * blockSizeY +5 );

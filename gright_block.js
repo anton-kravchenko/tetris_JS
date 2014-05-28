@@ -9,10 +9,6 @@ function GRightBlock () {
 						 new Point (0, blockStartPos + 1),
 						 new Point (1, blockStartPos),
 						 new Point (2, blockStartPos)
- 						//  new Point (0, blockStartPos -1),
-						 // new Point (0, blockStartPos),
-						 // new Point (1, blockStartPos),
-						 // new Point (2, blockStartPos)
 						);
 	RStates = new Array(
 						new Array							//up
@@ -120,7 +116,7 @@ GRightBlock.prototype = {
 
 	if ( LEFT  == dir) 
 		for(var i = 0; i < 4; i++)
-			newPos.push( new Point(points[i].raw, points[i].col - 1));			// make test versions of new block position
+			newPos.push( new Point(points[i].raw, points[i].col - 1));			
 
 	if ( RIGHT == dir) 
 		for(var i = 0; i < 4; i++)
@@ -128,7 +124,7 @@ GRightBlock.prototype = {
 
 	var c = 0;
 	for(var i = 0; i < 4; i++)
-		if ( true == grid[ newPos[i].raw ][ newPos[i].col ].isEmpty ) c++;		//check new pos points of block
+		if ( true == grid[ newPos[i].raw ][ newPos[i].col ].isEmpty ) c++;		
 
 	if ( 4 == c ) canMove = true;
 

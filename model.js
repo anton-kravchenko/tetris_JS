@@ -36,7 +36,6 @@ var currentBlock = createNewBlock();
 
 function createNewBlock()
 {
-	//add few block where
 	blockNum = (Math.random() * (NUMBER_OF_BLOCKS - 1)).toFixed();
 	if( 0 == blockNum) return new SquareBlock();
 	if( 1 == blockNum) return new LineBlock();
@@ -95,7 +94,7 @@ function clearFullLines()
 			var currentLine = raw;
 			while(currentLine > 0)
 			{
-				for(var col = 1; col < gridSizeX+1; col++) /// need to fix to use safty pillow
+				for(var col = 1; col < gridSizeX+1; col++) 
 				{
 					grid[currentLine][col].isEmpty 	= 	grid[currentLine - 1][col].isEmpty;	
 					grid[currentLine][col].color 	=	grid[currentLine - 1][col].color;	
@@ -103,7 +102,7 @@ function clearFullLines()
 				currentLine--;
 			}
 			raw++;
-			speed-=10;
+			speed-=5;
 		}
 	}
 	drawGrid();

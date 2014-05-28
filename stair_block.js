@@ -117,7 +117,7 @@ StairBlock.prototype = {
 
 	if ( LEFT  == dir) 
 		for(var i = 0; i < 4; i++)
-			newPos.push( new Point(points[i].raw, points[i].col - 1));			// make test versions of new block position
+			newPos.push( new Point(points[i].raw, points[i].col - 1));			
 
 	if ( RIGHT == dir) 
 		for(var i = 0; i < 4; i++)
@@ -125,7 +125,7 @@ StairBlock.prototype = {
 
 	var c = 0;
 	for(var i = 0; i < 4; i++)
-		if ( true == grid[ newPos[i].raw ][ newPos[i].col ].isEmpty ) c++;		//check new pos points of block
+		if ( true == grid[ newPos[i].raw ][ newPos[i].col ].isEmpty ) c++;		
 
 	if ( 4 == c ) canMove = true;
 
