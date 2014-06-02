@@ -1,4 +1,4 @@
-var canvasW = 1200;
+var canvasW = 1500;
 var canvasH = 700;
 var blockSizeX  = 24;
 var blockSizeY  = 24;
