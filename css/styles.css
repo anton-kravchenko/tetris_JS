@@ -1,0 +1,11 @@
+body {
+	margin: 0;
+	padding: 0;
+	height: 720px;
+	background-color: rgb(34, 34, 34);
+	overflow: hidden;
+}
+
+* {
+	overflow: hidden;
+}
